@@ -1,5 +1,5 @@
 import { useState } from "react";
-import HTTPClient from "../../../utils/HTTPClient";
+import HTTPClient from "../../utils/HTTPClient";
 import { useNavigate } from "react-router-dom";
 
 const LoginForm = (props) => {
