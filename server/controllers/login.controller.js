@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 
-const JWT_SECRET = "$ecRet0_"
+const JWT_SECRET = "$h0laMwnd0"
 
 const register = async (req, res) => {
     let userData = req.body

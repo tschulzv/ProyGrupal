@@ -1,3 +1,4 @@
+// schema relacionado con auth del usuario
 const mongoose = require("mongoose");
 const {Schema} = mongoose;
 
