@@ -2,7 +2,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const UserProfileSchema = new Schema({
+const UserContentSchema = new Schema({
     userId: {
         type: Schema.Types.ObjectId,
         ref: 'User',
@@ -22,6 +22,6 @@ const UserProfileSchema = new Schema({
     
 });
 
-const UserProfile = mongoose.model("UserProfile", UserProfileSchema);
+const UserContent = mongoose.model("UserContent", UserContentSchema);
 
-module.exports = UserProfile;
+module.exports = { UserContent };

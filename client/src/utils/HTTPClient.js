@@ -4,7 +4,7 @@ class HTTPClient {
     constructor(){
         this.instance = axios.create({
             baseURL: "http://localhost:5000",
-            withCredentials: true,
+            withCredentials: true
         })
     }
 
@@ -19,14 +19,9 @@ class HTTPClient {
         return this.instance.post("/register", data)
     }
 
-    //Escriba sus apis
-    /*
-    Ejemplo
-    getStudents(){
-        return this.instance.get("/student/")
+    getUserData(){
+        return this.instance.get("/user/profile");
     }
-    */
-
     
 }
 

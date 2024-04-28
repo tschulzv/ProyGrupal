@@ -1,4 +1,5 @@
 const {User} = require("../models/user");
+const {UserContent} = require("../models/UserContent.model");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -22,12 +23,18 @@ const register = async (req, res) => {
                 resolve(hash)
             });
         })
-
+        // crear el usuario ( email, contraseña etc)
         let user = new User({
             ...userData,
             password: hash
         })
-        await user.save()
+        await user.save();
+        // crear el contenido del usuario (biografia, foto etc)
+        let userContent = new UserContent({
+            userId: user._id,
+            name: userData.name
+        });
+        await userContent.save();
         res.json({user})
         
     } catch (error) {
@@ -123,6 +130,24 @@ const refresh = (req, res) => {
     }
 }
 
+/* middleware para verificar el token y extraer el id del usuario
+const verifyToken = (req, res, next) => {
+    const token = req.headers.authorization;
+
+    if (!token){
+        return res.status(401).json({ message: 'No se proporcionó un token' });
+    }
+
+    try {
+        // decodificar el token para poder obtener id del usuario
+        const decoded = jwt.verify(token, JWT_SECRET);
+        req.userId = decoded.id;
+        next();
+    }
+    catch (err) {
+        return res.status(401).json({message: "Token invalido"});
+    }
+}*/
 
 module.exports = {
     register,
