@@ -22,7 +22,10 @@ class HTTPClient {
     getUserData(){
         return this.instance.get("/user/profile");
     }
-    
+    // falta implementar!
+    getPagePosts(page){
+        return this.instance.get(`/posts?page=${page}`);
+    }
 }
 
 export default HTTPClient;

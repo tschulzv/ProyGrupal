@@ -35,7 +35,7 @@ const register = async (req, res) => {
             name: userData.name
         });
         await userContent.save();
-        res.json({user})
+        res.json({userData: userContent});
         
     } catch (error) {
         if (error instanceof mongoose.Error.ValidationError){
