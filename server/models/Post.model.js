@@ -27,9 +27,13 @@ const PostSchema = new Schema({
         type: String
     },
 
-    image: {
-        type: String // ruta del archivo
-    }, 
+    filename:{
+        type: String
+    },
+
+    filepath:{
+        type: String
+    },
 
     comments : [CommentSchema]
     

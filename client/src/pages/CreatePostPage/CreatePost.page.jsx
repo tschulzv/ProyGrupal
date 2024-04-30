@@ -54,7 +54,7 @@ const CreatePost = (props) => {
             <div className="content">
                 <Navbar />
                 <div className="main">
-                    <form>
+                    <form enctype="multipart/form-data" >
                         <label for="image" >Seleccione una foto</label>
                         <input name="image" type="file" accept="image/png, image/jpeg" onChange={e=> handleChange(e)}></input>
                         <label for="description">Añade una descripcion</label>
