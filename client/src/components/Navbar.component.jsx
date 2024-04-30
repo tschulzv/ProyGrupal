@@ -14,6 +14,7 @@ const Navbar = (props) => {
                 <li><Link to="/search" className="link">BUSQUEDA</Link></li>
                 <li><Link to="/profile" className="link">PERFIL</Link></li>
                 <li><Link to="/forum" className="link">FORO</Link></li>
+                <li><Link to="/create-post" className="link">NUEVO POST</Link></li>
             </ul>
         </div>
     )

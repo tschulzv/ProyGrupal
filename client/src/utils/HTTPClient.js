@@ -8,6 +8,7 @@ class HTTPClient {
         })
     }
 
+    /****               LOGIN Y REGISTRO                ***/ 
     login(email, password){
         return this.instance.post("/login", {
             email,
@@ -19,12 +20,28 @@ class HTTPClient {
         return this.instance.post("/register", data)
     }
 
+    /****       CONTENIDO DEL USUARIO         ****/ 
+
     getUserData(){
         return this.instance.get("/user/profile");
+    }
+
+    /****               POSTS                ****/ 
+
+    createPost(data) {
+        return this.instance.post("/posts/new", data);
     }
     // falta implementar!
     getPagePosts(page){
         return this.instance.get(`/posts?page=${page}`);
+    }
+
+    getUserPosts(userId){
+        return this.instance.get(`/posts?id=${userId}`);
+    }
+
+    getSearchedPosts(search){
+        return this.instance.get(`/posts?search=${search}`);
     }
 }
 
