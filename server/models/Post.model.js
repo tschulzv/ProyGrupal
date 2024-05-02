@@ -4,7 +4,7 @@ const { User } = require("./user");
 
 const CommentSchema = new Schema({
     userId: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'User' 
     },
     text: {
@@ -14,7 +14,7 @@ const CommentSchema = new Schema({
 // FALTA AGREGAR LA ESPECIE DE LA PLANTA DEL POST
 const PostSchema = new Schema({
     userId: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'User' 
     },
 

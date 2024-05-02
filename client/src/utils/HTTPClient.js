@@ -27,8 +27,20 @@ class HTTPClient {
     }
 
     /****               POSTS                ****/ 
+    /*createImage(data){
+        return this.instance.post("/image/new", data);
+    }*/
 
-    createPost(data) {
+    createPost(data) { 
+        /*const formData = new FormData();
+        formData.append('image', data.image);
+        formData.append('description', data.description);
+        formData.append('species', data.species);
+        formData.append('userId', data.userId);
+        formData.append('comments', data.comments);*/
+        /*headers: {
+            'Content-Type': 'multipart/form-data'
+        }*/
         return this.instance.post("/posts/new", data);
     }
     // falta implementar!

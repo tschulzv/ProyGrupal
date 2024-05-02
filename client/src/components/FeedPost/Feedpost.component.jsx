@@ -11,7 +11,7 @@ const Feedpost = ({post}) => {
     // hacer funcion openPost que abra los detalles de la publicacion (comentarios etc)
     return (
         <div className="post-wrapper">
-            <img src={post.src} alt={`post by ${post.user}`} className="feed-img" onClick={openPost}></img>
+            <img src={`http://localhost:5000/uploads/${post.filepath}`}  alt={`post by ${post.user}`} className="feed-img" onClick={openPost}></img>
             <div className="post-info">
                 <p className="post-user">{post.user}</p>
                 <p className="post-description">{post.description}</p>
