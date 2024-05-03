@@ -13,10 +13,12 @@ const UserContentSchema = new Schema({
         minlength: [10, "El nombre no puede tener menos de 10 caracteres"]
     },
     profileImage: {
-        type: String // ruta del archivo
+        type: String, // ruta del archivo
+        default: "/default-avatar.jpg"
     }, 
     bio : {
-        type: String
+        type: String,
+        default: "Hi!"
     }
     
 });

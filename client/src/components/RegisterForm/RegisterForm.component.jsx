@@ -1,6 +1,6 @@
 import { useState } from "react";
 import HTTPClient from "../../utils/HTTPClient";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const RegisterForm = (props) => {
     const [data, setData] = useState({})
@@ -45,7 +45,7 @@ const RegisterForm = (props) => {
         client.register(data)
             .then((response) => {
                 console.log("REGISTRO EXITOSO", data);
-                navigate("/home");
+                navigate("/");
             })
             .catch((error) => {
                 if (error.response){
@@ -55,65 +55,69 @@ const RegisterForm = (props) => {
             })
     }
 
-    return <div>
-        <h1>Registro</h1>
-        <form onSubmit={e => handleSubmit(e)}>
-        <div>
-            
-            {errors.name && <small>{errors.name}</small>}
-            <input 
-                id="registerName"
-                type="text" 
-                name="name" 
-                value={data.name || ""} 
-                onChange={e => handleChange(e)}
-                required={true}
-            />
+    return (
+        <div className="container-1">
+            <div className="row jutify-content-center">
+                <div className="col-4 bg-white">
+                    <h1>Register</h1>
+                    <div className="row">
+                        <label htmlFor="name">Name</label>
+                        {errors.name && <small>{errors.name}</small>}
+                        <input 
+                            id="registerName"
+                            type="text" 
+                            name="name" 
+                            value={data.name || ""} 
+                            onChange={handleChange}
+                            required={true}
+                        />
+                    </div>
+                    <div className="row">
+                        <label htmlFor="email">Email</label>
+                        {errors.email && <small>{errors.email}</small>}
+                        <input 
+                            id="registerEmail"
+                            type="email" 
+                            name="email" 
+                            value={data.email || ""} 
+                            onChange={handleChange}
+                            required={true}
+                        />
+                    </div>
+                    <div className="row">
+                        <label htmlFor="password">Password</label>
+                        {errors.password && <small>{errors.password}</small>}
+                        <input 
+                            id="registerPassword"
+                            type="password" 
+                            name="password" 
+                            value={data.password || ""} 
+                            onChange={handleChange}
+                            required={true}
+                            minLength={5}
+                        />
+                    </div>
+                <div className="row">
+                    <label htmlFor="password">Confirm password</label>
+                    {errors.password && <small>{errors.password}</small>}
+                    <input 
+                        id="registerpassword2"
+                        type="password" 
+                        name="password2" 
+                        value={data.password2 || ""} 
+                        onChange={handleChange}
+                        required={true}
+                        minLength={5}
+                    />
+                </div>
+                <div >
+                    <button type="submit" onClick={handleSubmit}>Create Account</button>
+                </div>
+                    <p>Already have an account? <Link to="/">Log in here</Link></p>
+                </div>
+            </div>
         </div>
-        <div>
-            <label htmlFor="email">Email</label>
-            {errors.email && <small>{errors.email}</small>}
-            <input 
-                id="registerEmail"
-                type="email" 
-                name="email" 
-                value={data.email || ""} 
-                onChange={(event) => handleChange(event)}
-                required={true}
-            />
-        </div>
-        <div>
-            <label htmlFor="password">Password</label>
-            {errors.password && <small>{errors.password}</small>}
-            <input 
-                id="registerPassword"
-                type="password" 
-                name="password" 
-                value={data.password || ""} 
-                onChange={(event) => handleChange(event)}
-                required={true}
-                minLength={5}
-            />
-            </div>
-            <div>
-                <label htmlFor="password2">Confirme su password</label>
-                {errors.password && <small>{errors.password}</small>}
-                <input 
-                    id="registerpassword2"
-                    type="password" 
-                    name="password2" 
-                    value={data.password2 || ""} 
-                    onChange={(event) => handleChange(event)}
-                    required={true}
-                    minLength={5}
-                />
-            </div>
-            <div>
-                <button type="submit">Registro</button>
-            </div>
-        </form>
-
-    </div>
+    )
 }
 
 export default RegisterForm;

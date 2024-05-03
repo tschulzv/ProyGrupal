@@ -3,7 +3,7 @@ import {
     Link
 } from "react-router-dom";
 import React, { useState } from "react";
-import "./StyleUtils.style.css";
+import "../utils/StyleUtils.style.css";
 
 const Navbar = (props) => {
 
@@ -11,10 +11,10 @@ const Navbar = (props) => {
         <div className = "navbar">
             <img src="#" alt="logo" className="logo"></img>
             <ul className="nav-links">
-                <li><Link to="/search" className="link">BUSQUEDA</Link></li>
-                <li><Link to="/profile" className="link">PERFIL</Link></li>
-                <li><Link to="/forum" className="link">FORO</Link></li>
-                <li><Link to="/create-post" className="link">NUEVO POST</Link></li>
+                <li className="link"><Link to="/search">BUSQUEDA</Link></li>
+                <li className="link"><Link to="/profile">PERFIL</Link></li>
+                <li className="link"><Link to="/forum">FORO</Link></li>
+                <li className="link"><Link to="/create-post">NUEVO POST</Link></li>
             </ul>
         </div>
     )

@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,600;1,600&display=swap');
+
+/* DISPOSICION DEL CUERPO */
+* {
+    background-color: white;
+    font-family: "Archivo", sans-serif;
+}
+
+h1, h2 {
+    font-family: "Playfair Display", serif;
+}
+
+.wrapper {
+    width: 1200px; 
+    height: 100%;
+    margin: 0 auto;
+    padding: 20px; 
+    display: flex;
+    flex-direction: column;
+}
+
+.content{
+    display: flex;
+    flex: 1;
+    width: 100%;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center; 
+    align-items: center;
+    text-align: center;
+}
+
+.btn {
+    height: 40px;
+    min-width: 50px;
+    max-width: 90px;
+    margin: 5px; 
+    border-radius: 1px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.green-back{
+    background-color: #329F5B;
+    color: white;
+}
+
+/* NAVBAR COMPONENT */ 
+.logo{
+    height: 70px;
+    width: auto;
+}
+
+
+.navbar{
+    background-color:mediumseagreen;
+    /*border-bottom: 1px solid #329F5B;*/
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.nav-links{
+    list-style-type: none;
+    display: flex;
+    background-color: transparent;
+}
+
+.link{
+    font-size: medium;
+    text-decoration: none;
+    background-color: mediumseagreen;
+    padding-left: 10px;
+}
+
+.link > Link {
+    text-decoration: none;
+    color: white;
+}
+
+.link:hover{
+    color: #096134;
+}

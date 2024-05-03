@@ -1,0 +1,44 @@
+.banner {
+    display: flex;
+    justify-content: space-around;
+    background-color: #95D5B2;
+}
+
+.banner-avatar {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+.banner-txt h1{
+    color: black;
+    font-weight: bolder;
+}
+
+
+.main-content {
+    display: flex;
+    width: 100%;
+    height: auto;
+}
+
+
+.pics-container {
+    flex: 1.5;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+    gap: 10px; 
+}
+
+.user-pic {
+    width: 100%;
+    height: auto;
+}
+
+.user-plants {
+    flex: 0.5;
+    min-height: 400px;
+    background-color: mediumseagreen;
+}
+
+

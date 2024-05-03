@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import HTTPClient from '../../utils/HTTPClient';
-import "../../components/StyleUtils.style.css";
+import "../../utils/StyleUtils.style.css";
 import Navbar from "../../components/Navbar.component.jsx";
 
 const CreatePost = (props) => {

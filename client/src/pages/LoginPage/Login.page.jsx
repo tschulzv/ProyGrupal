@@ -3,7 +3,6 @@ import RegisterForm from "../../components/RegisterForm/RegisterForm.component";
 
 const LoginPage = (props) => {
     return <div>
-        <RegisterForm />
         <LoginForm />
     </div>
 }

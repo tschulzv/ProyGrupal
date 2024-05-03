@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import HTTPClient from '../../utils/HTTPClient';
-import "../../components/StyleUtils.style.css";
+import "../../utils/StyleUtils.style.css";
 import Navbar from "../../components/Navbar.component.jsx";
+import FeedPost from "../../components/FeedPost/Feedpost.component.jsx"
 
 const HomePage = ({setUserData}) => {
     const client = new HTTPClient();
@@ -46,14 +47,14 @@ const HomePage = ({setUserData}) => {
     return (
         <div className="wrapper">
             <Navbar/>
-            { posts && (
+            { /*posts && (
             <div className="content">
                 {
-                    posts?.map((post, i) => (
+                    posts.map((post, i) => (
                         <FeedPost post={post} />
                     ))
                 }
-            </div>)}
+            </div>) */}
             <div className="pagination">
                 <button onClick={prevPage} disabled={page === 1}>Página anterior</button>
                 <button onClick={nextPage}>Página siguiente</button>

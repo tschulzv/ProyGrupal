@@ -4,11 +4,14 @@ import {
     Link
 } from "react-router-dom";
 import React, { useState } from "react";
-import "./StyleUtils.style.css";
+import "../../utils/StyleUtils.style.css";
 
 const Feedpost = ({post}) => {
-    // post en el feed debe contener imagen, descripcion, usuario, especie
-    // hacer funcion openPost que abra los detalles de la publicacion (comentarios etc)
+
+    const openPost = (() => {
+        // link a la publicacion para poder ver los detalles de la publicacion (comentarios etc)
+    });
+
     return (
         <div className="post-wrapper">
             <img src={`http://localhost:5000/uploads/${post.filepath}`}  alt={`post by ${post.user}`} className="feed-img" onClick={openPost}></img>

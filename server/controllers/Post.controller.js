@@ -4,14 +4,11 @@ const multer = require('multer');
 exports.savePost = async(req, res) => {
     console.log("DENTRO DE CREATEPOST");
     try {
-        // informacion del file
-        //const { filename, path } = req.file;
-        // crear el post con titulo, descripcion y datos del archivo
         const newPost = new Post({
           userId: req.body.userId,
           species: req.body.species,
           description: req.body.description,
-          filename: filename,
+          filename: `http://localhost:5000/api/static/${req.file.filename}`,
         });
         await newPost.save();
         res.status(201).json({ message: 'Post creado en la DB' });
@@ -40,7 +37,6 @@ exports.getPagePosts = async (req, res) => {
         res.status(500).json({ error: 'Error al obtener las publicaciones' });
     }
 };
-
 
 exports.getUserPosts = async (req, res) => {
     try {

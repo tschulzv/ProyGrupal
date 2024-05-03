@@ -1,6 +1,7 @@
 import { useState } from "react";
 import HTTPClient from "../../utils/HTTPClient";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import "./LoginForm.style.css"
 
 const LoginForm = (props) => {
 
@@ -50,40 +51,41 @@ const LoginForm = (props) => {
             })
     }
 
-    return <div>
-        <form onSubmit={handleSubmit}>
-            <div>
-                <h1>Login</h1>
-                <label htmlFor="email">Email</label>
-                {errors.email && <small>{errors.email}</small>}
-                <input 
-                    id="email"
-                    type="email" 
-                    name="email" 
-                    value={data.email || ""} 
-                    onChange={handleChange}
-                    required={true}
-                />
+    return (
+         <div className="container-1">
+            <div className="row jutify-content-center">
+                <div className="col-4 bg-white">
+                    <h1>Login</h1>
+                    <div className="row">
+                        <label htmlFor="email">Email:</label>
+                        <input 
+                            id="email"
+                            type="email" 
+                            name="email" 
+                            value={data.email || ""} 
+                            onChange={handleChange}
+                            required={true} 
+                        />
+                    </div>
+                    <div className="row">
+                        <label htmlFor="password">Password:</label>
+                        <input 
+                            id="password"
+                            type="password" 
+                            name="password" 
+                            value={data.password || ""} 
+                            onChange={handleChange}
+                            required={true}
+                            minLength={5} />
+                    </div>
+                    <div>
+                    <button onClick={handleSubmit}>Log in!</button>
+                    </div>
+                    <p>Don't have an account? <Link to="/register/">Sign up here</Link></p>
+                </div>
             </div>
-            <div>
-                <label htmlFor="password">Password</label>
-                {errors.email && <small>{errors.password}</small>}
-                <input 
-                    id="password"
-                    type="password" 
-                    name="password" 
-                    value={data.password || ""} 
-                    onChange={handleChange}
-                    required={true}
-                    minLength={5}
-                />
-            </div>
-            <div>
-                <button type="submit">Log In</button>
-            </div>
-        </form>
-
-    </div>
+        </div>
+    )
 }
 
 export default LoginForm;
