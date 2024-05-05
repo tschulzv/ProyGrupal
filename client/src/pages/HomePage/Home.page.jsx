@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import HTTPClient from '../../utils/HTTPClient';
 import "../../utils/StyleUtils.style.css";
+import "./Home.style.css";
 import Navbar from "../../components/Navbar.component.jsx";
 import FeedPost from "../../components/FeedPost/Feedpost.component.jsx"
 

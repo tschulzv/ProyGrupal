@@ -26,18 +26,18 @@ const ProfilePage = ({userData}) => {
     return (
         <div className="wrapper">
             <Navbar />
-            <div className="content">
+            <div className="profile-content">
                 {
                     userData && (
                         <>
-                            <div className="banner">
-                                <img className='banner-avatar' alt="profile" src={userData.profileImage}></img>
-                                <div className="banner-txt">
-                                    <h1>{userData.name}</h1>
-                                    <p>{userData.bio}</p>
+                            <div className="content-left">
+                                <div className="banner">
+                                    <img className='banner-avatar' alt="profile" src={userData.profileImage}></img>
+                                    <div className="banner-txt">
+                                        <h1>{userData.name}</h1>
+                                        <p>{userData.bio}</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="main-content">
                                 <div className="pics-container">
                                     { userPosts &&
                                         userPosts.map((post, index)=> (
@@ -45,15 +45,15 @@ const ProfilePage = ({userData}) => {
                                         ))
                                     }    
                                 </div>
-                                <div className="user-plants">
+                            </div>
+                            <div className="content-right">
                                     <h2>Mis plantas</h2>
                                     { userPosts &&
                                         userPosts.map((post, index)=> (
                                             <p key={index}>{post.species}</p>
                                         ))
                                     }   
-                                </div>
-                            </div>
+                            </div>  
                         </>
                     )
                 }

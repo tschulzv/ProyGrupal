@@ -6,3 +6,11 @@
     justify-content: center;
     align-items: center;
 }
+
+.pagination > button:disabled {
+    background-color: rgb(164, 164, 164);
+}
+
+.pagination > button:hover {
+    cursor: pointer;
+}

@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage/Home.page';
 import ProfilePage from './pages/ProfilePage/Profile.page';
 import CreatePost from './pages/CreatePostPage/CreatePost.page';
 import PostDetails from './pages/PostDetailsPage/PostDetails.page';
+import SearchPage from './pages/SearchPage/SearchPage.page';
 
 function App() {
   const [userData, setUserData] = useState(null);
@@ -19,6 +20,7 @@ function App() {
             <Route path="/profile" element={<ProfilePage userData={userData}/>}/>
             <Route path="/create-post" element={<CreatePost userData={userData}/>}/>
             <Route path="/posts/:id" element={<PostDetails userData={userData}/>}/>
+            <Route path="/search" element={<SearchPage userData={userData}/>}/>
         </Routes>
     </BrowserRouter>
   );

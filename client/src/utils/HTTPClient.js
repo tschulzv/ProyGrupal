@@ -54,12 +54,25 @@ class HTTPClient {
         return this.instance.get(`/posts?userId=${userId}`);
     }
     // obtener posts de buscar una especie
-    getSearchedPosts(search){
-        return this.instance.get(`/posts?search=${search}`);
+    getPostsBySpecies(species){
+        return this.instance.get(`/posts/${species}`);
     }
     // obtener un post dado su id
     getPostById(id){
         return this.instance.get(`/posts/${id}`);
+    }
+
+    // ACCEDER A LA API DE TREFLE, DADA UNA PLANTA
+    async getPlantInfo(query){
+        try {
+            console.log(`https://trefle.io/api/v1/species/search?token=RguHEXDbHljgz7X8MfVotulVhUnfNN7dUGIm2ysn1Bw&q=${query}`);
+            const response = await fetch(`https://trefle.io/api/v1/species/search?token=RguHEXDbHljgz7X8MfVotulVhUnfNN7dUGIm2ysn1Bw&q=${query}`);
+            const json = await response.json();
+            return json.data;
+        } catch (error) {
+            console.error('Error al obtener la información', error);
+            return null;
+        }
     }
 
     /*

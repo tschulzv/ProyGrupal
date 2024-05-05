@@ -61,3 +61,14 @@ exports.getPostById = async (req, res) => {
         res.status(500).json({ error: 'Error al obtener la publicacion' });
     }
 }
+
+exports.getPostsBySpecies = async (req, res) => {
+    try {
+        const id = req.params.species;
+        const posts = await Post.find({species : species})
+        res.json({posts: posts})
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al obtener publicaciones' });
+    }
+}
