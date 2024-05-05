@@ -12,13 +12,13 @@ const HomePage = ({setUserData}) => {
     const loadPage = () => {
         client.getPagePosts(page)
             .then(res => {
-                setPosts(res.data);
+                setPosts(res.data.posts);
                 console.log("publicaciones obtenidas con exito");
             })
             .catch(err => {
                 console.log(err);
             })
-        }
+    }
 
     // obtener los datos del usuario y pasar a la app, obtener publicaciones
     useEffect(() => {
@@ -47,17 +47,19 @@ const HomePage = ({setUserData}) => {
     return (
         <div className="wrapper">
             <Navbar/>
-            { /*posts && (
             <div className="content">
-                {
-                    posts.map((post, i) => (
-                        <FeedPost post={post} />
-                    ))
-                }
-            </div>) */}
-            <div className="pagination">
-                <button onClick={prevPage} disabled={page === 1}>Página anterior</button>
-                <button onClick={nextPage}>Página siguiente</button>
+                { posts && (
+                <div className="home-feed">
+                    {
+                        posts.map((post) => (
+                            <FeedPost key = {post._id} post={post} />
+                        ))
+                    }
+                </div>) }
+                <div className="pagination">
+                    <button onClick={prevPage} disabled={page === 1}>Página anterior</button>
+                    <button onClick={nextPage}>Página siguiente</button>
+                </div>
             </div>
         </div>
     );

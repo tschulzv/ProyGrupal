@@ -40,12 +40,24 @@ exports.getPagePosts = async (req, res) => {
 
 exports.getUserPosts = async (req, res) => {
     try {
-        const id = parseInt(req.query.id);
+        const id = parseInt(req.query.userId);
         const posts = await Post.find({userId : id})
             .sort({createdAt: -1})
         res.json({posts: posts})
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Error al obtener las publicaciones' });
+    }
+}
+
+exports.getPostById = async (req, res) => {
+    try {
+        const id = req.params.id;
+        console.log("dentro del controlador, id:", id);
+        const post = await Post.findOne({_id : id})
+        res.json({post: post})
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al obtener la publicacion' });
     }
 }

@@ -21,8 +21,11 @@ h1, h2 {
 
 .content{
     display: flex;
+    flex-direction: column;
     flex: 1;
     width: 100%;
+    justify-content: center;
+    align-items: center;
 }
 
 .main-content {
@@ -43,10 +46,6 @@ h1, h2 {
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 
-.green-back{
-    background-color: #329F5B;
-    color: white;
-}
 
 /* NAVBAR COMPONENT */ 
 .logo{
@@ -75,12 +74,8 @@ h1, h2 {
     font-size: medium;
     text-decoration: none;
     background-color: mediumseagreen;
-    padding-left: 10px;
-}
-
-.link > Link {
-    text-decoration: none;
     color: white;
+    padding-left: 10px;
 }
 
 .link:hover{

@@ -17,5 +17,6 @@ const postController = require("../controllers/Post.controller.js");
 // Rutas para manejar la carga de archivos y creación de posts
 router.post("/posts/new", upload.single("image"), postController.savePost);
 router.get("/posts", postController.getPagePosts);
+router.get("/posts/:id", postController.getPostById);
 
 module.exports = router;

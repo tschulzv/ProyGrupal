@@ -1,8 +1,49 @@
-/*   .post-wrapper 
-.feed-img
-    .post-info
-    .post-user
-    .post-description
-    .post-species 
-    
-*/
+
+.post-wrapper {
+    width: 800px;
+    height: auto;
+    background-color: white;
+   
+    margin: 10px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+.feed-img {
+    cursor: pointer;
+    width: 800px;
+    height: auto;
+}
+
+.post-info {
+    min-height: 50px;
+    width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: white;
+    padding-left: 20px;
+}
+
+.post-user{
+    color: mediumseagreen;
+    font-weight: bolder;
+    margin-top: 5px;
+    margin-right: 20px;
+}
+
+.post-user:hover {
+    color: #2D6A4F;
+    cursor:pointer;
+}
+
+.post-species {
+    background-color: mediumseagreen;
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.post-species:hover {
+    background-color: #2D6A4F;
+    cursor:pointer;
+}

@@ -26,6 +26,10 @@ class HTTPClient {
         return this.instance.get("/user/profile");
     }
 
+    getUserById(id){
+        return this.instance.get(`/user/profile?=${id}`)
+    }
+
     /****               POSTS                ****/ 
     /*createImage(data){
         return this.instance.post("/image/new", data);
@@ -45,13 +49,23 @@ class HTTPClient {
         return this.instance.get(`/posts?page=${page}`);
     }
 
+    // obtener posts de un usuario dado su id de usuario
     getUserPosts(userId){
-        return this.instance.get(`/posts?id=${userId}`);
+        return this.instance.get(`/posts?userId=${userId}`);
     }
-
+    // obtener posts de buscar una especie
     getSearchedPosts(search){
         return this.instance.get(`/posts?search=${search}`);
     }
+    // obtener un post dado su id
+    getPostById(id){
+        return this.instance.get(`/posts/${id}`);
+    }
+
+    /*
+    createComment(postId, comment){
+        return this.instance.post
+    }*/
 }
 
 export default HTTPClient;

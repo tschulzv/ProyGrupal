@@ -24,6 +24,22 @@ exports.getUserProfile = async (req, res) => {
     }
 };
 
+exports.getUserById = async (req, res)=> {
+    try {
+        const id = parseInt(req.query.userId);
+        const user = await UserContent.findOne({userId : userId});
+
+        if (!userContent) {
+            return res.status(404).json({ error: "Perfil de usuario no encontrado" });
+        }
+        
+        // Enviar el contenido del usuario como respuesta
+        res.json(userContent);
+    } catch (error) {
+        return res.status(500).json({ error: error.toString() });
+    }
+}
+
     /*
     try {
         // Obtener el token JWT de las cookies

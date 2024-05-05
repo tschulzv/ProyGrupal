@@ -5,6 +5,7 @@ import RegisterForm from './components/RegisterForm/RegisterForm.component';
 import HomePage from './pages/HomePage/Home.page';
 import ProfilePage from './pages/ProfilePage/Profile.page';
 import CreatePost from './pages/CreatePostPage/CreatePost.page';
+import PostDetails from './pages/PostDetailsPage/PostDetails.page';
 
 function App() {
   const [userData, setUserData] = useState(null);
@@ -17,6 +18,7 @@ function App() {
             <Route path="/home" element={<HomePage setUserData={setUserData}/>} />
             <Route path="/profile" element={<ProfilePage userData={userData}/>}/>
             <Route path="/create-post" element={<CreatePost userData={userData}/>}/>
+            <Route path="/posts/:id" element={<PostDetails userData={userData}/>}/>
         </Routes>
     </BrowserRouter>
   );

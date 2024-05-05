@@ -9,12 +9,14 @@ const Navbar = (props) => {
 
     return (
         <div className = "navbar">
-            <img src="#" alt="logo" className="logo"></img>
+            <Link to="/home">
+                <img src="#" alt="logo" className="logo"></img>
+            </Link>
             <ul className="nav-links">
-                <li className="link"><Link to="/search">BUSQUEDA</Link></li>
-                <li className="link"><Link to="/profile">PERFIL</Link></li>
-                <li className="link"><Link to="/forum">FORO</Link></li>
-                <li className="link"><Link to="/create-post">NUEVO POST</Link></li>
+                <li><Link to="/search" className="link">BUSQUEDA</Link></li>
+                <li><Link to="/profile" className="link">PERFIL</Link></li>
+                <li><Link to="/forum" className="link">FORO</Link></li>
+                <li><Link to="/create-post" className="link">NUEVO POST</Link></li>
             </ul>
         </div>
     )

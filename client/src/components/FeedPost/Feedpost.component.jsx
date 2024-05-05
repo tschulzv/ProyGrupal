@@ -3,24 +3,39 @@ import {
     useNavigate, 
     Link
 } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../../utils/StyleUtils.style.css";
+import "./Feedpost.style.css"
+import HTTPClient from "../../utils/HTTPClient";
 
 const Feedpost = ({post}) => {
+    const [user, setUser] = useState(null);
+    const client = new HTTPClient();
+    const navigate = useNavigate();
+
+    // obtener datos del usuario que posteó
+    useEffect(() => {
+        client.getUserById(post.userId)
+            .then(res => setUser(res.data))
+            .catch(err => console.log(err));
+    },[])
 
     const openPost = (() => {
-        // link a la publicacion para poder ver los detalles de la publicacion (comentarios etc)
+        navigate(`/posts/${post._id}`);
     });
 
     return (
+        post && user && (
         <div className="post-wrapper">
-            <img src={`http://localhost:5000/uploads/${post.filepath}`}  alt={`post by ${post.user}`} className="feed-img" onClick={openPost}></img>
+            <img src={post.filename}  alt={`${post.description}`} className="feed-img" onClick={openPost}></img>
             <div className="post-info">
-                <p className="post-user">{post.user}</p>
+                <p>
+                    <span><Link to="/perfildelusuario" className="post-user">{user.name}</Link></span>
+                    <span><Link to="/postsdelaespecie" className="post-species">{post.species}</Link></span>
+                </p>
                 <p className="post-description">{post.description}</p>
-                <p className="post-species"></p>
             </div>
-        </div>
+        </div> )
     )
 }
 
