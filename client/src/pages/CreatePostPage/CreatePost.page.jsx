@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import HTTPClient from '../../utils/HTTPClient';
 import "../../utils/StyleUtils.style.css";
+import "./CreatePost.style.css";
 import Navbar from "../../components/Navbar.component.jsx";
 
 const CreatePost = (props) => {
@@ -83,11 +84,12 @@ const CreatePost = (props) => {
     // AGREGAR API DE EDITOR DE TEXTO
     return (
         <div className="wrapper">
+            <Navbar />
             <div className="content">
-                <Navbar />
-                <div className="main">
-                    <form encType="multipart/form-data" >
-                        <label htmlFor="image" >Seleccione una foto</label>
+                <div className="form-box">
+                    <h1>NUEVO POST</h1>
+                    <form encType="multipart/form-data">
+                        <label htmlFor="image">Seleccione una foto</label>
                         <input name="image" type="file" accept="image/png, image/jpeg" onChange={e=> handleFileChange(e)}></input>
                         <label htmlFor="description">Añade una descripcion</label>
                         <input name="description" type="text" onChange={e=> handleChange(e)}></input>

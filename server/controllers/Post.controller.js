@@ -22,7 +22,7 @@ exports.getPagePosts = async (req, res) => {
   console.log("dentro de get page post");
     try {
         const page = parseInt(req.query.page) || 1; // Página por defecto es 1
-        const pageSize = 10; // num de publicaciones por página
+        const pageSize = 5; // num de publicaciones por página
         const skip = (page - 1) * pageSize; // publicaciones que ignorara (las de la pag anterior)
 
         // Consulta las publicaciones para la página actual

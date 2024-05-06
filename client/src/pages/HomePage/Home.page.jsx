@@ -10,8 +10,8 @@ const HomePage = ({setUserData}) => {
     const [posts, setPosts] = useState(null);
     const [page, setPage] = useState(1);
 
-    const loadPage = () => {
-        client.getPagePosts(page)
+    const loadPage = (pageNum) => {
+        client.getPagePosts(pageNum)
             .then(res => {
                 setPosts(res.data.posts);
                 console.log("publicaciones obtenidas con exito");

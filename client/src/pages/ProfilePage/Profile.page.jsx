@@ -12,7 +12,8 @@ const ProfilePage = ({userData}) => {
     useEffect(() => {
         client.getUserPosts(id)
             .then(res => {
-                setUserPosts(res.posts);
+                console.log("se encontaron los posts del usuario", res)
+                setUserPosts(res.data.posts);
             })
             .catch(err => {
                 console.log("no se encontraron posts", err)
@@ -41,7 +42,7 @@ const ProfilePage = ({userData}) => {
                                 <div className="pics-container">
                                     { userPosts &&
                                         userPosts.map((post, index)=> (
-                                            <img key={index} src={post.filepath} alt="img" className="user-pic" onClick={linkToPost}/>
+                                            <img key={index} src={post.filename} alt="img" className="user-pic" onClick={linkToPost}/>
                                         ))
                                     }    
                                 </div>

@@ -14,12 +14,12 @@ const SearchResults = (props) => {
     const client = new HTTPClient();
 
     useEffect(() => {
+        console.log("en search results, buscar: ", species);
         // obtener info sobre la especie de Trefle 
         client.getPlantInfo(species)
             .then(res => {
                 console.log("TREFLEAPI: ", res.data);
                 setApiInfo(res.data[0])
-
             })
             .catch(err => console.log(err));
         // obtener posts de esa especie
