@@ -5,8 +5,8 @@ const postController = require("../controllers/Post.controller.js");
 
 router.post("/posts/new", upload.single("image"), postController.savePost);
 router.get("/posts", postController.getPagePosts);
-router.get("/posts/:userId", postController.getUserPosts);
-router.get("/posts/:id", postController.getPostById);
-router.get("/posts/:species", postController.getPostsBySpecies);
+router.get("/posts/user/:userId", postController.getUserPosts);
+router.get("/posts/:id", postController.getPostById)
+router.get("/posts/species/:species", postController.getPostsBySpecies);
 
 module.exports = router;

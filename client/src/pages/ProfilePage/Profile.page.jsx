@@ -6,17 +6,18 @@ import './ProfilePage.style.css';
 
 const ProfilePage = ({userData}) => {
     const [userPosts, setUserPosts] = useState(null);
-    const {id} = userData.userId;
+    //const {id} = userData.userId;
     const client = new HTTPClient();
 
     useEffect(() => {
-        client.getUserPosts(id)
+        console.log("en perfil, userId:", userData.userId);
+        client.getUserPosts(userData.userId)
             .then(res => {
                 console.log("se encontaron los posts del usuario", res)
                 setUserPosts(res.data.posts);
             })
             .catch(err => {
-                console.log("no se encontraron posts", err)
+                console.log("no se encontraron posts del usuario", err)
             })
     },[]);
 

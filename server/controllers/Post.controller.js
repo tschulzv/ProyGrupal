@@ -40,8 +40,8 @@ exports.getPagePosts = async (req, res) => {
 
 exports.getUserPosts = async (req, res) => {
     try {
-        const id = parseInt(req.query.userId);
-        const posts = await Post.find({userId : id})
+        const userId = req.params.userId;
+        const posts = await Post.find({userId : userId})
             .sort({createdAt: -1})
         res.json({posts: posts})
     } catch (error) {
@@ -54,7 +54,8 @@ exports.getPostById = async (req, res) => {
     try {
         const id = req.params.id;
         console.log("dentro del controlador, id:", id);
-        const post = await Post.findOne({_id : id})
+        const post = await Post.findOne({ _id: id });
+
         res.json({post: post})
     } catch (error) {
         console.error(error);
@@ -64,7 +65,7 @@ exports.getPostById = async (req, res) => {
 
 exports.getPostsBySpecies = async (req, res) => {
     try {
-        const id = req.params.species;
+        const species = req.params.species;
         const posts = await Post.find({species : species})
         res.json({posts: posts})
     } catch (error) {

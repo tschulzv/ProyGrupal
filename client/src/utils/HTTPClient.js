@@ -44,22 +44,25 @@ class HTTPClient {
         formData.append('comments', data.comments);
         return this.instance.post("/posts/new", data);
     }
-    // falta implementar!
+
     getPagePosts(page){
         return this.instance.get(`/posts?page=${page}`);
     }
 
-    // obtener posts de un usuario dado su id de usuario
-    getUserPosts(userId){
-        return this.instance.get(`/posts?userId=${userId}`);
-    }
-    // obtener posts de buscar una especie
-    getPostsBySpecies(species){
-        return this.instance.get(`/posts/${species}`);
-    }
     // obtener un post dado su id
     getPostById(id){
         return this.instance.get(`/posts/${id}`);
+    }
+
+    // obtener posts de un usuario dado su id de usuario
+    getUserPosts(userId){
+        //return this.instance.get(`/posts?userId=${userId}`);
+        return this.instance.get(`/posts/user/${userId}`);
+    }
+    // obtener posts de buscar una especie
+    getPostsBySpecies(species){
+        //return this.instance.get(`/posts?species=${species}`);
+        return this.instance.get(`/posts/species/${species}`);
     }
 
     // ACCEDER A LA API DE TREFLE, DADA UNA PLANTA

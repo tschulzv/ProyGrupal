@@ -21,21 +21,22 @@ const SearchPage = () => {
         e.preventDefault();
         // iniciar la busqueda 
         console.log("se buscara: ", searchSpecies);
-        //setStartSearch(true);
-
-        // obtener info sobre la especie de Trefle 
+        
+        /* obtener info sobre la especie de Trefle 
         client.getPlantInfo(searchSpecies)
-            .then(res => {
-                console.log("TREFLEAPI: ", res.data);
-                setApiInfo(res.data[0])
-            })
-            .catch(err => console.log(err));
+        .then(res => {
+            console.log("TREFLEAPI: ", res.data);
+            setApiInfo(res.data[0])
+        })
+        .catch(err => console.log(err));*/
         // obtener posts de esa especie
         client.getPostsBySpecies(searchSpecies)
-            .then(res => {
-                setResults(res.data.posts)
-            })
-            .catch(err => { console.log(err)} );        
+        .then(res => {
+            console.log("se encontro de la especie: ", res.data.posts);
+            setResults(res.data.posts)
+        })
+        .catch(err => { console.log(err)} );        
+        setStartSearch(true);
     }
 
     return (

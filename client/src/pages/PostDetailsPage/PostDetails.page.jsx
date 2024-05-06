@@ -16,10 +16,10 @@ const PostDetails = ( {userData} ) => {
     const client = new HTTPClient();
 
     useEffect(()=>{
-        console.log(id);
+        console.log("POST ID:", id);
         client.getPostById(id)
             .then(res => {
-                console.log(`POST id ${id}`, res.data.post)
+                console.log(`obtenido post id ${id}`, res.data.post)
                 setPost(res.data.post)})
             .catch(err => console.log(err));
     },[]);
