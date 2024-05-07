@@ -1,5 +1,6 @@
 const express = require('express')
-const app = express()
+const app = express();
+const nodeFetch = require('node-fetch');
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const path = require('path');
@@ -16,7 +17,7 @@ const trefleRouter = require("./routes/Trefle.routes");
 app.use("/", postrouter);
 app.use("/", oAuthRouter);
 app.use("/user", userContentRouter);
-//app.use("/plants", trefleRouter)
+app.use("/plants", trefleRouter);
 app.use("/api/static", express.static(path.join(__dirname, 'uploads')));
 
 

@@ -66,14 +66,13 @@ class HTTPClient {
     }
 
     // ACCEDER A LA API DE TREFLE, DADA UNA PLANTA
-    async getPlantInfo(query){
+    /*async getPlantInfo(query){
+       return this.instance.get(`/plants/${query}`);
+    }*/
+    getPlantInfo(query){
        return this.instance.get(`/plants/${query}`);
     }
 
-    /*
-    createComment(postId, comment){
-        return this.instance.post
-    }*/
 }
 
 export default HTTPClient;

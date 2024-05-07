@@ -10,8 +10,7 @@ const CreatePost = (props) => {
     const [post, setPost] = useState({
         userId: props.userData.userId, 
         description: "",
-        species: "",
-        comments: []
+        species: ""
     });
     const [file, setFile] = useState();
     const [errors, setErrors] = useState();
@@ -31,34 +30,49 @@ const CreatePost = (props) => {
         })
     }
 
-    const handleSubmit = (e) => {
-        console.log("DENTRO DE HANDLESUBMIT");
+    const handleSubmit = async (e) => {
         e.preventDefault();
-
+        // Cambia el formato de la especie
+        const formattedSpecies = post.species.trim().toLowerCase().replaceAll(" ", "-");
+        console.log("especie formateada:", formattedSpecies);
+        
+        // Espera la validación de la especie antes de continuar
+        const isValidSpecies = await validateSpecies(formattedSpecies);
+        if (!isValidSpecies) {
+            console.log("La especie no es válida");
+            return;
+        } 
+        // validar otros campos
         if (!validate()) { return; }
         console.log("se paso la validacion");
-
+    
         const formData = new FormData();
         formData.append('image', file); // Agrega el archivo al FormData
-
-        for (const key in post) {
+        formData.append('species', formattedSpecies);
+        formData.append('description', post.description);
+        formData.append('userId', post.userId);
+        formData.append('comments', []);
+        /*for (const key in post) {
             formData.append(key, post[key]);
-        }
-
+        }*/
+    
         console.log("Datos a enviar:", formData);
-
-        client.createPost(formData)
-            .then(res => {
-                console.log("Post publicado con exito", res);
-                setIsUploaded(true);
-                setTimeout(() => {
-                    navigate("/home");
-                }, 2000);
-            })
-            .catch(err => { console.log("ERROR:", err)});
+    
+        // Si la especie es válida, crea el post
+        try {
+            const res = await client.createPost(formData);
+            console.log("Post publicado con éxito", res);
+            setIsUploaded(true);
+            setTimeout(() => {
+                navigate("/home");
+            }, 2000);
+        } catch (err) {
+            console.log("ERROR:", err);
+        }
     }
 
     const validate = () => {
+        // bandera para validacion
         let flag = true;
 
         if (!file) {
@@ -66,19 +80,35 @@ const CreatePost = (props) => {
             setErrors({...errors, image: "Debes seleccionar una imagen"});
             flag = false;
         }
+
         if (post.description.length < 5){
             console.log("Descripcion debe tener al menos 5 caracteres");
             setErrors({...errors, description: "Descripcion debe tener al menos 5 caracteres"});
             flag = false;
         }
-        if (post.species === ""){
-            console.log("Debes seleccionar la especie");
-            setErrors({...errors, species: "Debes seleccionar la especie"});
-            flag = false;
-        }
-        console.log("flag:", flag);
+        
         return flag;
     }
+    
+    const validateSpecies = async (formattedSpecies) => {
+        try {
+            // Busca la especie en la API
+            const res = await client.getPlantInfo(formattedSpecies);
+            if (res.data.length === 0) {
+                console.log("La especie no existe");
+                setErrors({...errors, species: "La especie no existe"});
+                return false;
+            } else {
+                setPost({...post, species: formattedSpecies});
+                console.log("La especie existe");
+                return true;
+            }
+        } catch (err) {
+            console.log(err);
+            return false;
+        }
+    }
+    
 
     // FALTA CONECTAR CON LA API PARA SLECCIONAR LA ESPECIE
     // AGREGAR API DE EDITOR DE TEXTO

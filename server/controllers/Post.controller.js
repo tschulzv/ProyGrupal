@@ -18,6 +18,24 @@ exports.savePost = async(req, res) => {
       }
 }
 
+exports.saveComment = async(req, res) => {
+    try {
+        // crear el comentario
+        const newComment = new Comment({
+          userId: req.body.userId,
+          text: req.body.text
+        });
+        await newComment.save();
+        
+        // guardar en el array de comentarios
+
+        res.status(201).json({ message: 'Comentario creado y guardado en la DB' });
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al crear el post' });
+      }
+}
+
 exports.getPagePosts = async (req, res) => {
   console.log("dentro de get page post");
     try {

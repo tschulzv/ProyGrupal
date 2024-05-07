@@ -6,7 +6,6 @@ import React, { useState, useEffect } from "react";
 import SearchResults from "../../components/SearchResults/SearchResults.component"
 import Navbar from "../../components/Navbar.component";
 import "../../utils/StyleUtils.style.css";
-//import "./SearchPage.style.css"
 import HTTPClient from "../../utils/HTTPClient";
 
 const SearchPage = () => {
@@ -22,13 +21,13 @@ const SearchPage = () => {
         // iniciar la busqueda 
         console.log("se buscara: ", searchSpecies);
         
-        /* obtener info sobre la especie de Trefle 
+        // obtener info sobre la especie de Trefle 
         client.getPlantInfo(searchSpecies)
         .then(res => {
             console.log("TREFLEAPI: ", res.data);
             setApiInfo(res.data[0])
         })
-        .catch(err => console.log(err));*/
+        .catch(err => console.log("FRONT- error con trefle", err));
         // obtener posts de esa especie
         client.getPostsBySpecies(searchSpecies)
         .then(res => {
