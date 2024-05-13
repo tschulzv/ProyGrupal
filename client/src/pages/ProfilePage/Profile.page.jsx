@@ -1,16 +1,40 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import HTTPClient from '../../utils/HTTPClient';
 import Navbar from '../../components/Navbar.component';
 import '../../utils/StyleUtils.style.css';
 import './ProfilePage.style.css';
 
-const ProfilePage = ({userData}) => {
+const ProfilePage = (props) => {
+    const [userData, setUserData] = useState(props.userData || null);
     const [userPosts, setUserPosts] = useState(null);
+    const { userId } = useParams();
     //const {id} = userData.userId;
     const client = new HTTPClient();
 
+    const formatSpecies = (species) => {
+        const replaced = species.replace("-", " ");
+        const firstLetter = replaced.charAt(0)
+        const firstLetterCap = firstLetter.toUpperCase()
+        const remainingLetters = replaced.slice(1)
+        const capitalizedWord = firstLetterCap + remainingLetters
+        return capitalizedWord;
+    }
+    /*
     useEffect(() => {
-        console.log("en perfil, userId:", userData.userId);
+        // si ya se le pasa datos de usuario, establecerlos
+        if (!props.userData){ 
+            console.log("params:", userId);  
+            client.getUserById(userId)
+                .then(res => {
+                    setUserData(res.data);
+                    console.log("se encontaron datos del usuario", res.data)
+                })
+                .catch(err => {
+                    console.log("no se encontro el usuario", err)
+                })
+        } 
+
         client.getUserPosts(userData.userId)
             .then(res => {
                 console.log("se encontaron los posts del usuario", res)
@@ -19,11 +43,33 @@ const ProfilePage = ({userData}) => {
             .catch(err => {
                 console.log("no se encontraron posts del usuario", err)
             })
-    },[]);
-
-    const linkToPost = () => {
-        // cuando se haceclick sobre la foto se abre el post        
-    }
+    },[]);*/
+    useEffect(() => {
+        if (!props.userData){ 
+            console.log("params:", userId);  
+            client.getUserById(userId)
+                .then(res => {
+                    setUserData(res.data);
+                    console.log("se encontraron datos del usuario", res.data)
+                })
+                .catch(err => {
+                    console.log("no se encontró el usuario", err)
+                })
+        } 
+    }, [userId, props.userData]);
+    
+    useEffect(() => {
+        if (userData) {
+            client.getUserPosts(userData.userId)
+                .then(res => {
+                    console.log("se encontraron los posts del usuario", res)
+                    setUserPosts(res.data.posts);
+                })
+                .catch(err => {
+                    console.log("no se encontraron posts del usuario", err)
+                })
+        }
+    }, [userData]);    
 
     return (
         <div className="wrapper">
@@ -43,7 +89,9 @@ const ProfilePage = ({userData}) => {
                                 <div className="pics-container">
                                     { userPosts &&
                                         userPosts.map((post, index)=> (
-                                            <img key={index} src={post.filename} alt="img" className="user-pic" onClick={linkToPost}/>
+                                            <Link to={`/posts/${post._id}`}>
+                                                <img key={index} src={post.filename} alt="img" className="user-pic"/>
+                                            </Link>
                                         ))
                                     }    
                                 </div>
@@ -52,7 +100,7 @@ const ProfilePage = ({userData}) => {
                                     <h2>Mis plantas</h2>
                                     { userPosts &&
                                         userPosts.map((post, index)=> (
-                                            <p key={index}>{post.species}</p>
+                                            <p key={index}>{formatSpecies(post.species)}</p>
                                         ))
                                     }   
                             </div>  

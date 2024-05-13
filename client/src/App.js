@@ -18,6 +18,7 @@ function App() {
             <Route path="/register" element={<RegisterForm/>} />
             <Route path="/home" element={<HomePage setUserData={setUserData}/>} />
             <Route path="/profile" element={<ProfilePage userData={userData}/>}/>
+            <Route path="/profile/:userId" element={<ProfilePage />}/>
             <Route path="/create-post" element={<CreatePost userData={userData}/>}/>
             <Route path="/posts/:id" element={<PostDetails userData={userData}/>}/>
             <Route path="/search" element={<SearchPage userData={userData}/>}/>

@@ -26,14 +26,11 @@ class HTTPClient {
         return this.instance.get("/user/profile");
     }
 
-    getUserById(id){
-        return this.instance.get(`/user/profile?=${id}`)
+    getUserById(userId){
+        return this.instance.get(`/user/${userId}`)
     }
-
+   
     /****               POSTS                ****/ 
-    /*createImage(data){
-        return this.instance.post("/image/new", data);
-    }*/
 
     createPost(data) { 
         const formData = new FormData();
@@ -45,8 +42,21 @@ class HTTPClient {
         return this.instance.post("/posts/new", data);
     }
 
+    editPost(id, data){
+        return this.instance.put(`/posts/${id}/edit`, data);
+    }
+
+    saveComment(id, data){
+        console.log("en http client", data);
+        return this.instance.post(`/posts/${id}/comment`, data);
+    }
+
     getPagePosts(page){
         return this.instance.get(`/posts?page=${page}`);
+    }
+
+    getCommentById(id){
+        return this.instance.get(`/comments/${id}`);
     }
 
     // obtener un post dado su id
@@ -56,19 +66,14 @@ class HTTPClient {
 
     // obtener posts de un usuario dado su id de usuario
     getUserPosts(userId){
-        //return this.instance.get(`/posts?userId=${userId}`);
         return this.instance.get(`/posts/user/${userId}`);
     }
     // obtener posts de buscar una especie
     getPostsBySpecies(species){
-        //return this.instance.get(`/posts?species=${species}`);
         return this.instance.get(`/posts/species/${species}`);
     }
 
     // ACCEDER A LA API DE TREFLE, DADA UNA PLANTA
-    /*async getPlantInfo(query){
-       return this.instance.get(`/plants/${query}`);
-    }*/
     getPlantInfo(query){
        return this.instance.get(`/plants/${query}`);
     }

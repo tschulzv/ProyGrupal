@@ -8,6 +8,7 @@ import "../../utils/StyleUtils.style.css";
 import "./PostDetails.style.css"
 import HTTPClient from "../../utils/HTTPClient";
 import Navbar from "../../components/Navbar.component";
+import Comment from "../../components/Comment/Comment.component";
 
 const PostDetails = ( {userData} ) => {
     const { id } = useParams();
@@ -30,7 +31,8 @@ const PostDetails = ( {userData} ) => {
             "userId" : userData.userId,
             "text" : newComment
         } 
-        client.createComment(id, comment)
+        console.log("se enviará el comentario", comment);
+        client.saveComment(id, comment)
             .then(res => {
                 console.log("se agrego el comentario a la db");
                 post.comments.push(comment);
@@ -38,31 +40,36 @@ const PostDetails = ( {userData} ) => {
             .catch(err => { console.log("ERROR:", err)});
     }
 
+    const formatSpecies = (species) => {
+        const replaced = species.replace("-", " ");
+        const firstLetter = replaced.charAt(0)
+        const firstLetterCap = firstLetter.toUpperCase()
+        const remainingLetters = replaced.slice(1)
+        const capitalizedWord = firstLetterCap + remainingLetters
+        return capitalizedWord;
+    }
+
     return (
         <div className="wrapper">
             <Navbar/>
             <div className="content">
                 {post && (
-                    <div className="post-wrapper">
-                        <img src={post.filename}  alt={`${post.description}`} className="post-img"></img>
-                        <div className="post-info">
-                            <p><Link to="/perfildelusuario" className="post-user">{post.userId}</Link></p>
-                            <p><Link to="/postsdelaespecie" className="post-species">{post.species}</Link></p>
+                    <div className="detail-wrapper">
+                        <img src={post.filename}  alt={`${post.description}`} className="detail-img"></img>
+                        <div className="detail-info">
+                            <p><Link to={`/profile/${post.userId}`} className="post-user">{post.userId}</Link></p>
+                            <p><Link to="/postsdelaespecie" className="post-species">{formatSpecies(post.species)}</Link></p>
                             <p className="post-description">{post.description}</p>
-                            <p>Comentarios</p>
-                            {!post.comments ? <p>Aún no hay comentarios...</p> :
-                            (
-                                post.comments.map((comment) => {
-                                    <div key={comment._id} className="comment-wrapper">
-                                        <p className="comment-user">{comment.userId/* cambair a q muestre el nombre*/}</p> 
-                                        <p className="comment-text">{comment.text}</p>
-                                    </div>
-                                })
-                            )
+                            <h2>Comentarios</h2>
+                            {(!post.comments || post.comments.length === 0) ? <p>Aún no hay comentarios...</p> :
+                                (
+                                    //console.log("se mapearan los comentarios", post.comments[0])
+                                    post?.comments?.map((comment) => (
+                                        <Comment key={comment} id={comment} />
+                                    )))
                             }
-                            <label htmlFor="write-comment">Escribe un comentario...</label>
-                            <input name="write-comment" type="text" onChange={(e) => setNewComment(e.value)}></input>
-                            <button onClick={e => submitComment(e)}>Publicar</button>
+                            <input name="write-comment" type="text" placeholder="Escribe un comentario" width="250" onChange={(e) => setNewComment(e.target.value)}></input>
+                            <button onClick={e => submitComment(e)} className="btn">Publicar</button>
                         </div>
                     </div>
                 )}

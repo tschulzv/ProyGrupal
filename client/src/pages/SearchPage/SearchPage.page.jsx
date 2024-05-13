@@ -18,18 +18,18 @@ const SearchPage = () => {
 
     const handleSearch = (e) => {
         e.preventDefault();
-        // iniciar la busqueda 
-        console.log("se buscara: ", searchSpecies);
+        const formattedSpecies = searchSpecies.trim().toLowerCase().replaceAll(" ", "-");
+        // iniciar la busqueda
         
         // obtener info sobre la especie de Trefle 
-        client.getPlantInfo(searchSpecies)
+        client.getPlantInfo(formattedSpecies)
         .then(res => {
             console.log("TREFLEAPI: ", res.data);
             setApiInfo(res.data[0])
         })
         .catch(err => console.log("FRONT- error con trefle", err));
         // obtener posts de esa especie
-        client.getPostsBySpecies(searchSpecies)
+        client.getPostsBySpecies(formattedSpecies)
         .then(res => {
             console.log("se encontro de la especie: ", res.data.posts);
             setResults(res.data.posts)

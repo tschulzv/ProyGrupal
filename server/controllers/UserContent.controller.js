@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const JWT_SECRET = "$h0laMwnd0";
 const { verifyToken } = require("../utils/oauth.js");
 
-
+// usado para obtener el contenido del usuario que INICIO SESION
 exports.getUserProfile = async (req, res) => {
     try {
     // en el middleware verifyToken se obtuvo el payload y se guardo en req.user
@@ -24,21 +24,23 @@ exports.getUserProfile = async (req, res) => {
     }
 };
 
+// usado para obtener cualquier usuario
 exports.getUserById = async (req, res)=> {
     try {
-        const id = parseInt(req.query.userId);
+        const userId = req.params.userId;
         const user = await UserContent.findOne({userId : userId});
 
-        if (!userContent) {
+        if (!user) {
             return res.status(404).json({ error: "Perfil de usuario no encontrado" });
         }
         
         // Enviar el contenido del usuario como respuesta
-        res.json(userContent);
+        res.json(user);
     } catch (error) {
         return res.status(500).json({ error: error.toString() });
     }
 }
+
 
     /*
     try {

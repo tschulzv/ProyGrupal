@@ -1,4 +1,6 @@
 const {Post} = require('../models/Post.model');
+const {Comment} = require('../models/Post.model');
+const mongoose = require("mongoose");
 const multer = require('multer');
 
 exports.savePost = async(req, res) => {
@@ -21,19 +23,31 @@ exports.savePost = async(req, res) => {
 exports.saveComment = async(req, res) => {
     try {
         // crear el comentario
+        const userId = new mongoose.Types.ObjectId(req.body.userId);
         const newComment = new Comment({
-          userId: req.body.userId,
+          userId: userId,
           text: req.body.text
         });
         await newComment.save();
         
-        // guardar en el array de comentarios
-
+        // guardar en el array de comentarios del post correspondiente
+        await Post.findByIdAndUpdate(req.params.id, {
+            $push: { comments: newComment._id }
+        })
         res.status(201).json({ message: 'Comentario creado y guardado en la DB' });
       } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Error al crear el post' });
+        res.status(500).json({ error: 'Error al crear el comentario' });
       }
+}
+
+exports.editPost= async(req, res) => {
+    try {
+        Post.findByIdAndUpdate(req.params.id, req.body, {new: true})
+            .then(updatedPost => res.json({ post: updatedPost}))
+    } catch (error) {
+        console.log(error);
+    } 
 }
 
 exports.getPagePosts = async (req, res) => {
@@ -78,6 +92,18 @@ exports.getPostById = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Error al obtener la publicacion' });
+    }
+}
+
+exports.getCommentById = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const comment = await Comment.findOne({ _id: id });
+
+        res.json({comment: comment})
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al obtener el comentario' });
     }
 }
 

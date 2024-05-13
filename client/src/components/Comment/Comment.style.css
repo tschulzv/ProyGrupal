@@ -1,0 +1,9 @@
+.comment-wrapper {
+    display: flex;
+}
+
+.comment-user{
+    color: mediumseagreen;
+    margin-right: 5px;
+}
+

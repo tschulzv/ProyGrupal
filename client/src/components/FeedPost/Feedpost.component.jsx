@@ -16,7 +16,9 @@ const Feedpost = ({post}) => {
     // obtener datos del usuario que posteó
     useEffect(() => {
         client.getUserById(post.userId)
-            .then(res => setUser(res.data))
+            .then(res => {
+                console.log("autor del post: ", res.data.name);
+                setUser(res.data)})
             .catch(err => console.log(err));
     },[])
 
@@ -39,7 +41,7 @@ const Feedpost = ({post}) => {
             <img src={post.filename}  alt={`${post.description}`} className="feed-img" onClick={openPost}></img>
             <div className="post-info">
                 <p>
-                    <span><Link to="/perfildelusuario" className="post-user">{user.name}</Link></span>
+                    <span><Link to={`/profile/${user.userId}`} className="post-user">{user.name}</Link></span>
                     <span><Link to="/postsdelaespecie" className="post-species">{formatSpecies(post.species)}</Link></span>
                 </p>
                 <p className="post-description">{post.description}</p>
