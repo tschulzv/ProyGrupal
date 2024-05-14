@@ -1,26 +1,36 @@
 import {
     useNavigate, 
-    Link
+    Link,
+    useParams
 } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import SearchResults from "../../components/SearchResults/SearchResults.component"
 import Navbar from "../../components/Navbar.component";
 import "../../utils/StyleUtils.style.css";
+import "./SearchPage.style.css";
 import HTTPClient from "../../utils/HTTPClient";
 
 const SearchPage = () => {
-    const [searchSpecies, setSearchSpecies] = useState();
-    const [startSearch, setStartSearch] = useState(false); // inicia la busqueda, cuando el usuario presiona 'buscar' 
+    const { tagged } = useParams(); // para buscar una etiqueta de especie
+    const [searchSpecies, setSearchSpecies] = useState(tagged || null);
+    const [startSearch, setStartSearch] = useState(tagged); // inicia la busqueda, cuando el usuario presiona 'buscar' 
     const [results, setResults] = useState();
     const [apiInfo, setApiInfo] = useState(); // para almacenar info de trefle
     const client = new HTTPClient();
 
+    useEffect(() => {
+        if (tagged) {
+           search(tagged);
+        }
+    },[]);
 
     const handleSearch = (e) => {
         e.preventDefault();
-        const formattedSpecies = searchSpecies.trim().toLowerCase().replaceAll(" ", "-");
-        // iniciar la busqueda
-        
+        const formattedSpecies = searchSpecies.trim().toLowerCase();
+        search(formattedSpecies);
+        setStartSearch(true);
+    }
+
+    const search = (formattedSpecies) => {
         // obtener info sobre la especie de Trefle 
         client.getPlantInfo(formattedSpecies)
         .then(res => {
@@ -35,24 +45,27 @@ const SearchPage = () => {
             setResults(res.data.posts)
         })
         .catch(err => { console.log(err)} );        
-        setStartSearch(true);
     }
 
     return (
         <div className="wrapper">
                 <Navbar/>
                 <div className="content">
-                    <h1>Busca una especie</h1>
-                    <input type="text" onChange={e => setSearchSpecies(e.target.value)}></input>
-                    <button onClick={e => handleSearch(e)}>Buscar</button>
+                    <div className="search-bar">
+                        <label htmlFor="search-input">Busca una especie</label>
+                        <input id="search-input" type="text" onChange={e => setSearchSpecies(e.target.value)}></input>
+                        <button onClick={e => handleSearch(e)}>Buscar</button>
+                    </div>
                     { searchSpecies && startSearch && 
                           <>
-                           {apiInfo && 
-                              <div className="plant-info">
-                                  <p>Familia: {apiInfo.family}</p>
-                                  <p>Género: {apiInfo.genus}</p>
-                              </div>
-                          }
+                          <div className="plant-info">
+                            <p>INFORMACIÓN</p>
+                            {apiInfo && <>
+                                <p>Familia: {apiInfo.family}</p>
+                                <p>Género: {apiInfo.genus}</p>
+                                </>
+                            }
+                            </div>
                           <div className="results-wrapper">
                               { results && results.map((post) => (
                                   <Link to={`/posts/${post._id}`}>

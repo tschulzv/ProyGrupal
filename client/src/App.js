@@ -21,7 +21,8 @@ function App() {
             <Route path="/profile/:userId" element={<ProfilePage />}/>
             <Route path="/create-post" element={<CreatePost userData={userData}/>}/>
             <Route path="/posts/:id" element={<PostDetails userData={userData}/>}/>
-            <Route path="/search" element={<SearchPage userData={userData}/>}/>
+            <Route path="/search/:tagged" element={<SearchPage userData={userData}/>}/>
+            <Route path="/search/" element={<SearchPage userData={userData}/>}/>
         </Routes>
     </BrowserRouter>
   );

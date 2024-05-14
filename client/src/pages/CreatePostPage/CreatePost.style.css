@@ -23,3 +23,8 @@
 .form-box button {
     width: 100px;
 }
+
+.error-msg {
+    color: red;
+    font-size: small;
+}

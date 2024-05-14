@@ -27,10 +27,9 @@ const Feedpost = ({post}) => {
     });
 
     const formatSpecies = (species) => {
-        const replaced = species.replace("-", " ");
-        const firstLetter = replaced.charAt(0)
+        const firstLetter = species.charAt(0)
         const firstLetterCap = firstLetter.toUpperCase()
-        const remainingLetters = replaced.slice(1)
+        const remainingLetters = species.slice(1)
         const capitalizedWord = firstLetterCap + remainingLetters
         return capitalizedWord;
     }
@@ -42,7 +41,7 @@ const Feedpost = ({post}) => {
             <div className="post-info">
                 <p>
                     <span><Link to={`/profile/${user.userId}`} className="post-user">{user.name}</Link></span>
-                    <span><Link to="/postsdelaespecie" className="post-species">{formatSpecies(post.species)}</Link></span>
+                    <span><Link to={`/search/${post.species}`} className="post-species">{formatSpecies(post.species)}</Link></span>
                 </p>
                 <p className="post-description">{post.description}</p>
             </div>

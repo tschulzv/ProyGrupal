@@ -13,7 +13,7 @@ const CreatePost = (props) => {
         species: ""
     });
     const [file, setFile] = useState();
-    const [errors, setErrors] = useState();
+    const [errors, setErrors] = useState({});
     const [isUploaded, setIsUploaded] = useState(false);
     const client = new HTTPClient();
     const navigate = useNavigate(); 
@@ -33,7 +33,8 @@ const CreatePost = (props) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         // Cambia el formato de la especie
-        const formattedSpecies = post.species.trim().toLowerCase().replaceAll(" ", "-");
+        //const formattedSpecies = post.species.trim().toLowerCase().replaceAll(" ", "%20");
+        const formattedSpecies = post.species.trim().toLowerCase();
         console.log("especie formateada:", formattedSpecies);
         
         // Espera la validación de la especie antes de continuar
@@ -45,20 +46,16 @@ const CreatePost = (props) => {
         // validar otros campos
         if (!validate()) { return; }
         console.log("se paso la validacion");
-    
+        // crear formdata y asignarle valores
         const formData = new FormData();
-        formData.append('image', file); // Agrega el archivo al FormData
+        formData.append('image', file); 
         formData.append('species', formattedSpecies);
         formData.append('description', post.description);
         formData.append('userId', post.userId);
         formData.append('comments', []);
-        /*for (const key in post) {
-            formData.append(key, post[key]);
-        }*/
     
         console.log("Datos a enviar:", formData);
     
-        // Si la especie es válida, crea el post
         try {
             const res = await client.createPost(formData);
             console.log("Post publicado con éxito", res);
@@ -120,11 +117,14 @@ const CreatePost = (props) => {
                     <h1>NUEVO POST</h1>
                     <form encType="multipart/form-data">
                         <label htmlFor="image">Seleccione una foto</label>
-                        <input name="image" type="file" accept="image/png, image/jpeg" onChange={e=> handleFileChange(e)}></input>
+                        <input name="image" type="file" accept="image/png, image/jpeg" onChange={e=> handleFileChange(e)}></input>            
                         <label htmlFor="description">Añade una descripcion</label>
+                        {errors.image  && <span className="error-msg">{errors.image}</span>}               
                         <input name="description" type="text" onChange={e=> handleChange(e)}></input>
+                        {errors.description  && <span className="error-msg">{errors.description}</span>}
                         <label htmlFor = "species">Seleccione la especie</label>
                         <input name="species" type="text" onChange={e=> handleChange(e)}></input>
+                        {errors.species  && <span className="error-msg">{errors.species}</span>}
                         <button type="submit" onClick={e => handleSubmit(e)}>Publicar</button>
                         {isUploaded && <p>Se ha subido la publicación exitosamente</p>}
                     </form>

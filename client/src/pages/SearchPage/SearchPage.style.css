@@ -1,0 +1,38 @@
+.search-bar {
+    width: 100%;
+    display: flex;
+}
+
+.search-bar label {
+    font-size: 25px;
+}
+
+.search-bar input {
+    max-width: 400px;
+}
+
+.search-bar button {
+    width: 60px;
+}
+
+.results-wrapper{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 300px);
+    gap: 10px; 
+}
+
+.thumbnail {
+    max-width: 300px;
+    height: auto;
+}
+
+.plant-info {
+    width: 90%;
+    background-color: #95D5B2;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.plant-info p {
+    background-color: transparent;
+}

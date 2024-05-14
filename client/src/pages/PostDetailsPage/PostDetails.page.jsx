@@ -41,10 +41,9 @@ const PostDetails = ( {userData} ) => {
     }
 
     const formatSpecies = (species) => {
-        const replaced = species.replace("-", " ");
-        const firstLetter = replaced.charAt(0)
+        const firstLetter = species.charAt(0)
         const firstLetterCap = firstLetter.toUpperCase()
-        const remainingLetters = replaced.slice(1)
+        const remainingLetters = species.slice(1)
         const capitalizedWord = firstLetterCap + remainingLetters
         return capitalizedWord;
     }
@@ -58,7 +57,7 @@ const PostDetails = ( {userData} ) => {
                         <img src={post.filename}  alt={`${post.description}`} className="detail-img"></img>
                         <div className="detail-info">
                             <p><Link to={`/profile/${post.userId}`} className="post-user">{post.userId}</Link></p>
-                            <p><Link to="/postsdelaespecie" className="post-species">{formatSpecies(post.species)}</Link></p>
+                            <p><Link to={`/search/${post.species}`} className="post-species">{formatSpecies(post.species)}</Link></p>
                             <p className="post-description">{post.description}</p>
                             <h2>Comentarios</h2>
                             {(!post.comments || post.comments.length === 0) ? <p>Aún no hay comentarios...</p> :
