@@ -29,6 +29,15 @@ class HTTPClient {
     getUserById(userId){
         return this.instance.get(`/user/${userId}`)
     }
+
+    updateUser(id, data) {
+        return this.instance.put(`/user/profile/update/${id}`, data);
+        /*{
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });*/
+    }
    
     /****               POSTS                ****/ 
 
@@ -71,6 +80,33 @@ class HTTPClient {
     // obtener posts de buscar una especie
     getPostsBySpecies(species){
         return this.instance.get(`/posts/species/${species}`);
+    }
+
+      /****               FORUM                ****/ 
+      createForum(data) { 
+        return this.instance.post("/forum/new", data);
+    }
+    
+    // falta implementar!
+    getPageForum(page){
+        return this.instance.get(`/forum?page=${page}`);
+    }
+
+    // obtener posts de un usuario dado su id de usuario
+    getUserForums(userId){
+        return this.instance.get(`/forum?userId=${userId}`);
+    }
+
+    // obtener un post dado su id
+    getForumById(id){
+        return this.instance.get(`/forum/${id}`);
+    }
+
+    createComment(comment) { 
+        return this.instance.post(`/forum/comment`, comment);
+    }
+    getCommentsByForumId(forumId) {
+        return this.instance.get(`/forum/${forumId}`);
     }
 
     // ACCEDER A LA API DE TREFLE, DADA UNA PLANTA

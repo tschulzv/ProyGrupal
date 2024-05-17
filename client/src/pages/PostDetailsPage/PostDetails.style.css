@@ -19,10 +19,20 @@
 }
 
 .detail-info {
+    width: 100%;
     min-height: 50px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     background-color: white;
     padding-left: 20px;
+}
+
+.input-comment {
+    width: 90%;
+    display: flex;
+}
+
+.input-comment button {
+    width: 100px;
 }

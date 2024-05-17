@@ -41,6 +41,44 @@ exports.getUserById = async (req, res)=> {
     }
 }
 
+exports.updateUserProfile = async (req, res) => {
+    console.log("DENTRO DE UPDATEUSER");
+    try {
+            const { userId, name, bio } = req.body;
+            const profileImage = req.file ? req.file.filename : null;
+            console.log(profileImage);
+
+            const updateData = { userId, name, bio };
+            if (profileImage) {
+                updateData.profileImage = `http://localhost:5000/api/static/${profileImage}`;
+            }
+            updateData.userId=req.user.id
+            
+            console.log("funca", updateData);
+            console.log(updateData.userId);
+
+            const updatedUser = await UserContent.findOneAndUpdate(
+                {userId: req.user.id}, // Usando req.user.id como el identificador del usuario
+                updateData,
+                { new: true }
+            );
+
+            console.log("updated user", updatedUser);
+            if (!updatedUser) {
+                return res.status(404).json({ message: 'Usuario no encontrado' });
+            }
+
+            console.log("Usuario encontrado");
+
+            res.status(200).json({ message: 'Perfil actualizado con éxito', user: updatedUser });
+        
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: '(controlador)Error al actualizar el perfil' });
+    }
+};
+
+
 
     /*
     try {

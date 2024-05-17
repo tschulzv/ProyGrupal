@@ -9,8 +9,8 @@ const Navbar = (props) => {
 
     return (
         <div className = "navbar">
-            <Link to="/home">
-                <img src="#" alt="logo" className="logo"></img>
+            <Link to="/home" className="logo-link">
+                <img src="/plantbook.png" alt="logo" className="logo"></img>
             </Link>
             <ul className="nav-links">
                 <li><Link to="/search" className="link">BUSCAR</Link></li>

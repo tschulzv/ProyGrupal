@@ -130,24 +130,6 @@ const refresh = (req, res) => {
     }
 }
 
-/* middleware para verificar el token y extraer el id del usuario
-const verifyToken = (req, res, next) => {
-    const token = req.headers.authorization;
-
-    if (!token){
-        return res.status(401).json({ message: 'No se proporcionó un token' });
-    }
-
-    try {
-        // decodificar el token para poder obtener id del usuario
-        const decoded = jwt.verify(token, JWT_SECRET);
-        req.userId = decoded.id;
-        next();
-    }
-    catch (err) {
-        return res.status(401).json({message: "Token invalido"});
-    }
-}*/
 
 module.exports = {
     register,

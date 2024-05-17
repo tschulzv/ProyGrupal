@@ -50,20 +50,22 @@ const SearchPage = () => {
     return (
         <div className="wrapper">
                 <Navbar/>
-                <div className="content">
+                <div className="content-box">
                     <div className="search-bar">
-                        <label htmlFor="search-input">Busca una especie</label>
+                        <label htmlFor="search-input" className="title">Busca una especie</label>
                         <input id="search-input" type="text" onChange={e => setSearchSpecies(e.target.value)}></input>
                         <button onClick={e => handleSearch(e)}>Buscar</button>
                     </div>
                     { searchSpecies && startSearch && 
                           <>
                           <div className="plant-info">
-                            <p>INFORMACIÓN</p>
-                            {apiInfo && <>
+                            <p className="title">INFORMACIÓN</p>
+                            { apiInfo === undefined || apiInfo === null ? <p> Cargando... </p> :  <>
+                                <p>Nombre común: {apiInfo.common_name}</p>
+                                <p>Nombre científico: {apiInfo.scientific_name}</p>
                                 <p>Familia: {apiInfo.family}</p>
                                 <p>Género: {apiInfo.genus}</p>
-                                </>
+                            </>
                             }
                             </div>
                           <div className="results-wrapper">

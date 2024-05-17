@@ -9,7 +9,6 @@ const ProfilePage = (props) => {
     const [userData, setUserData] = useState(props.userData || null);
     const [userPosts, setUserPosts] = useState(null);
     const { userId } = useParams();
-    //const {id} = userData.userId;
     const client = new HTTPClient();
 
     const formatSpecies = (species) => {
@@ -45,7 +44,9 @@ const ProfilePage = (props) => {
             })
     },[]);*/
     useEffect(() => {
-        if (!props.userData){ 
+
+        if(!props.userData){
+    
             console.log("params:", userId);  
             client.getUserById(userId)
                 .then(res => {
@@ -85,6 +86,9 @@ const ProfilePage = (props) => {
                                         <h1>{userData.name}</h1>
                                         <p>{userData.bio}</p>
                                     </div>
+                                    {
+                                        props.editable && <Link to="/settings" className="edit-link">Editar</Link>
+                                    }
                                 </div>
                                 <div className="pics-container">
                                     { userPosts &&

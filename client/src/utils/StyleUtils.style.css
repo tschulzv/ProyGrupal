@@ -1,13 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,600;1,600&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap');
 /* DISPOSICION DEL CUERPO */
 * {
     background-color: white;
-    font-family: "Archivo", sans-serif;
+    font-family: "Roboto", sans-serif;
 }
 
-h1, h2 {
-    font-family: "Playfair Display", serif;
+h1, h2, .title {
+    font-family: "League Spartan", sans-serif;
+    font-weight: bolder;
 }
 
 .wrapper {
@@ -50,14 +51,17 @@ h1, h2 {
 
 /* NAVBAR COMPONENT */ 
 .logo{
-    height: 70px;
+    height: 50px;
+    margin-left: 10px;
     width: auto;
 }
 
+.logo-link {
+    background-color: transparent;
+}
 
 .navbar{
     background-color:mediumseagreen;
-    /*border-bottom: 1px solid #329F5B;*/
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -81,4 +85,25 @@ h1, h2 {
 
 .link:hover{
     color: #096134;
+}
+
+.pagination {
+    min-width: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 20px;
+}
+
+.pagination > button {
+    width: 200px;
+    height: auto;
+}
+
+.pagination > button:disabled {
+    background-color: rgb(164, 164, 164);
+}
+
+.pagination > button:hover {
+    cursor: pointer;
 }

@@ -1,10 +1,21 @@
+.content-box {
+    width: 1000px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .search-bar {
     width: 100%;
     display: flex;
+    align-items: center;
 }
 
 .search-bar label {
     font-size: 25px;
+    margin: 20px;
 }
 
 .search-bar input {
@@ -16,7 +27,8 @@
 }
 
 .results-wrapper{
-    width: 100%;
+    margin: 10px;
+    width: 95%;
     display: grid;
     grid-template-columns: repeat(auto-fill, 300px);
     gap: 10px; 
@@ -29,6 +41,7 @@
 
 .plant-info {
     width: 90%;
+    min-height: 100px;
     background-color: #95D5B2;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
