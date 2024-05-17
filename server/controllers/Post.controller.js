@@ -34,7 +34,7 @@ exports.saveComment = async(req, res) => {
         await Post.findByIdAndUpdate(req.params.id, {
             $push: { comments: newComment._id }
         })
-        res.status(201).json({ message: 'Comentario creado y guardado en la DB' });
+        res.status(201).json({ message: 'Comentario creado y guardado en la DB', commentId: newComment._id});
       } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Error al crear el comentario' });

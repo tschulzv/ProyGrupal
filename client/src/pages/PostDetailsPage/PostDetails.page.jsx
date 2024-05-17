@@ -13,6 +13,7 @@ import Comment from "../../components/Comment/Comment.component";
 const PostDetails = ( {userData} ) => {
     const { id } = useParams();
     const [post, setPost] = useState();
+    const [comments, setComments] = useState();
     const [userName, setUserName] = useState();
     const [newComment, setNewComment] = useState();
     const client = new HTTPClient();
@@ -24,6 +25,8 @@ const PostDetails = ( {userData} ) => {
                 let userId = res.data.post.userId;
                 console.log(`obtenido post id ${id}`, res.data.post)
                 setPost(res.data.post)
+                console.log("comentarios:", res.data.post.comments);
+                setComments(res.data.post.comments)
                 client.getUserById(userId)
                     .then(res => {
                         console.log(`obtenido user id ${userId}`, res.data)
@@ -42,9 +45,10 @@ const PostDetails = ( {userData} ) => {
         console.log("se enviará el comentario", comment);
         client.saveComment(id, comment)
             .then(res => {
-                console.log("se agrego el comentario a la db");
-                let updateComments = [...post.comments, comment];
-                setPost({...post, comments: updateComments})
+                console.log("se agrego el comentario a la db", res);
+                let updateComments = [...comments, res.data.commentId];
+                console.log("updatedcomments", updateComments)
+                setComments(updateComments);
                 setNewComment("");
             })
             .catch(err => { console.log("ERROR:", err)});
@@ -70,9 +74,9 @@ const PostDetails = ( {userData} ) => {
                             <p><Link to={`/search/${post.species}`} className="post-species">{formatSpecies(post.species)}</Link></p>
                             <p className="post-description">{post.description}</p>
                             <h2>Comentarios</h2>
-                            {(!post.comments || post.comments.length === 0) ? <p>Aún no hay comentarios...</p> :
+                            {(!comments || comments.length === 0) ? <p>Aún no hay comentarios...</p> :
                                 (
-                                    post?.comments?.map((comment) => (
+                                    comments?.map((comment) => (
                                         <Comment key={comment} id={comment} />
                                     )))
                             }

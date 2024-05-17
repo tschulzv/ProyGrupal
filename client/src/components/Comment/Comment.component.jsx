@@ -12,7 +12,8 @@ const Comment = (props) => {
     const [userName, setUserName] = useState();
     const client = new HTTPClient();
 
-    useState(() => {
+    useEffect(() => {
+        console.log("comentario props id:", props.id);
         client.getCommentById(props.id)
             .then(res => {
                 setComment(res.data.comment)
