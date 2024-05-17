@@ -4,29 +4,34 @@ import "../../utils/StyleUtils.style.css";
 import "./ForumDetails.style.css";
 import HTTPClient from "../../utils/HTTPClient";
 import Navbar from "../../components/Navbar.component";
+import { Editor } from '@tinymce/tinymce-react'; // Importa Editor de TinyMCE
 
 const ForumDetails = ({ userData }) => {
     const { id } = useParams();
     const [forum, setForum] = useState(null);
-    const [newComment, setNewComment] = useState("");
+    const [newComment, setNewComment] = useState(""); // Contenido HTML del nuevo comentario
     const [comments, setComments] = useState([]);
     const client = new HTTPClient('http://localhost:5000'); 
-
+    
     // Función para cargar los comentarios
-    const loadComments = async () => {
-        try {
-            const response = await client.getForumById(id);
-            setForum(response.data.forum);
-            setComments(response.data.forum.commentsForum);
-        } catch (error) {
-            console.error("Error al cargar comentarios:", error);
-        }
-    };
-
     useEffect(() => {
+        const loadComments = async () => {
+            try {
+                const response = await client.getForumById(id);
+                setForum(response.data.forum);
+                setComments(response.data.forum.commentsForum);
+            } catch (error) {
+                console.error("Error al cargar comentarios:", error);
+            }
+        };
         // Llamar a la función para cargar los comentarios cuando cambie el ID del foro
         loadComments();
     }, [id]);
+
+    // Función para manejar los cambios en el editor de TinyMCE
+    const handleEditorChange = (content) => {
+        setNewComment(content);
+    };
 
     const submitComment = async (e) => {
         e.preventDefault();
@@ -36,7 +41,7 @@ const ForumDetails = ({ userData }) => {
             console.error("No se pudo enviar el comentario: userData no está definido o no contiene userId.");
             return;
         }
-    
+        
         // Crear el objeto de comentario
         const comment = {
             forumId: id,
@@ -53,7 +58,8 @@ const ForumDetails = ({ userData }) => {
             setNewComment("");
             
             // Volver a cargar los comentarios para reflejar el nuevo comentario
-            loadComments();
+            const response = await client.getForumById(id);
+            setComments(response.data.forum.commentsForum);
             
             // Opcionalmente, puedes realizar cualquier otra acción después de enviar el comentario con éxito
             console.log("Comentario enviado con éxito.");
@@ -66,7 +72,7 @@ const ForumDetails = ({ userData }) => {
     return (
         <div className="wrapper">
             <Navbar />
-            <div className="forum-content">
+            <div className="content">
                 {forum && (
                     <div className="forum-wrapper">
                         <div className="forum-banner">
@@ -74,23 +80,39 @@ const ForumDetails = ({ userData }) => {
                             <p>Publicado por <Link to={`/profile/${forum.userId}`} className="forum-user">{forum.userName}</Link></p>
                         </div>
                         <div className="forum-info">
-                            <p className="forum-description">Descripción: {forum.description}</p>
-                            <h2>Comentarios</h2>
+                            <p className="forum-description" dangerouslySetInnerHTML={{ __html: forum.description }}></p>
+                            <h2>Comentarios:</h2>
                             {comments.length === 0 ? (
                                 <p>No hay comentarios aún.</p>
                             ) : (
                                 <ul>
                                     {comments.map(comment => (
-                                        <div key={comment._id}>
-                                            <p><strong>{comment.userName}:</strong> {comment.text} </p>
+                                        <div className="comment-box" key={comment._id}>
+                                            <p><strong>{comment.userName}:</strong><p dangerouslySetInnerHTML={{ __html: comment.text }}></p></p>
                                         </div>
                                     ))}
                                 </ul>
                             )}
-                            <div className="comment-input">
-                                <input placeholder="Escribe un comentario..." name="text" type="text" value={newComment} onChange={(e) => setNewComment(e.target.value)}></input>
-                                <button onClick={submitComment}>Publicar</button>
-                            </div>
+                            <label htmlFor="text">Escribe un comentario...</label>
+                            <Editor
+                                apiKey='4wpwq25gyqkkzwbrabmf4b2733v0g50fepduy2x9rgqx0yp6'
+                                initialValue=""
+                                init={{
+                                    height: 500,
+                                    menubar: false,
+                                    plugins: [
+                                        'advlist autolink lists link image charmap print preview anchor',
+                                        'searchreplace visualblocks code fullscreen',
+                                        'insertdatetime media table paste code help wordcount'
+                                    ],
+                                    toolbar:
+                                        'undo redo | formatselect | bold italic backcolor | ' +
+                                        'alignleft aligncenter alignright alignjustify | ' +
+                                        'bullist numlist outdent indent | removeformat | help'
+                                }}
+                                onEditorChange={handleEditorChange}
+                            />
+                            <button className="btn-comment" onClick={submitComment}>Publicar</button>
                         </div>
                     </div>
                 )}
@@ -100,3 +122,5 @@ const ForumDetails = ({ userData }) => {
 };
 
 export default ForumDetails;
+
+

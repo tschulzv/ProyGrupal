@@ -1,6 +1,10 @@
 .forum-preview {
-    border: 1px solid black;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 1000px;
+    height: auto;
     padding: 10px;
+    margin: 5px;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -15,6 +19,10 @@
     cursor: pointer;
 }
 
+.preview-title {
+    width: 250px;
+}
 .post-info {
     font-size: small;
+    width: 500px;
 }
